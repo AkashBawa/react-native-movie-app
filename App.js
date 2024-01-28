@@ -3,19 +3,35 @@ import { GluestackUIProvider } from '@gluestack-ui/themed';
 import { StyleSheet, View } from 'react-native';
 import { config } from "@gluestack-ui/config";
 import { Box, StatusBar, Text } from '@gluestack-ui/themed'
+import { SafeAreaProvider } from "react-native-safe-area-context";
+
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import { NavigationContainer } from '@react-navigation/native';
+import listMovies from './src/components/MoviesList';
+import tvShows from './src/components/TVshowList';
+import SearchResults from './src/components/SearchMovies';
+
+const Tab = createMaterialTopTabNavigator();
+
 
 export default function App() {
   return (
     <SafeAreaProvider>
       <GluestackUIProvider config={config}>
-        <View style={styles.container}>
-          <StatusBar backgroundColor='#2c3e50' />
-          <Box bg='#2c3e50' alignItems='center' justifyContent='center' safeAreaTop py={5}>
-            <Text color='#fff' fontSize={20} fontWeight='bold'>
-              Recipe App
-            </Text>
-          </Box>
-        </View>
+        <StatusBar backgroundColor='#2c3e50' />
+        <Box bg='#2c3e50' justifyContent='center'>
+          <Text color='#fff' style={styles.textArea} fontSize={20} fontWeight='bold'>
+            Movie App
+          </Text>
+        </Box>
+        <NavigationContainer>
+          <Tab.Navigator>
+            <Tab.Screen name="Movies" component={listMovies} />
+            <Tab.Screen name="Search Results" component={SearchResults} />
+            <Tab.Screen name="TV Shows" component={SearchResults} />
+          </Tab.Navigator>
+        </NavigationContainer>
+       
       </GluestackUIProvider>
     </SafeAreaProvider>
   );
@@ -28,4 +44,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+
+  textArea: {
+    textAlign: "center",
+    paddingTop: 10,
+    paddingBottom: 10
+  }
 });
