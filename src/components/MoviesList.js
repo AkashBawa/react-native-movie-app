@@ -4,8 +4,8 @@ import MovieList from "./MovieList"
 import { getRequest } from "./../services/api";
 import { StyleSheet } from 'react-native';
 
-const ListMovies = props => {
-    const { onInputChange, onSubmit } = props;
+const ListMovies = ({ navigation })=> {
+
     const [movieListdata, setMovieList] = useState([]);
     const [movieType, setMovieType] = useState("popular");
 
@@ -53,7 +53,7 @@ const ListMovies = props => {
             </View>
 
             {
-                movieListdata && <MovieList movies={movieListdata}></MovieList>
+                movieListdata && <MovieList navigation={navigation} movies={movieListdata}></MovieList>
             }
 
         </View>

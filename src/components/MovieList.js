@@ -8,7 +8,8 @@ const MovieList = (props) => {
     <FlatList
       data={movies}
       renderItem={({ item }) => (
-        <MovieCard
+        <MovieCard 
+        navigation = {navigation}
           image={item.poster_path ? `${Config.BASE_URL_FOR_IMAGE}${item.poster_path}` : "https://image.tmdb.org/t/p/w500/7lTnXOy0iNtBAdRP3TZvaKJ77F6.jpg" }
           title= {item.title}
           popularity={item.popularity}

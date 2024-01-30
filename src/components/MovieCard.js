@@ -22,7 +22,7 @@ const MovieCard = props => {
                     <Text>Release Date: {release_date}</Text>
                     <Button
                         onPress={() => {
-                            navigation.navigate('Web', { label, url })
+                            navigation.navigate('details')
                         }}
                         variant='link'
                         style={styles.button}

@@ -1,53 +1,33 @@
-import { GluestackUIProvider } from '@gluestack-ui/themed';
-// import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, View } from 'react-native';
-import { config } from "@gluestack-ui/config";
-import { Box, StatusBar, Text } from '@gluestack-ui/themed'
 import { SafeAreaProvider } from "react-native-safe-area-context";
-
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+
 import { NavigationContainer } from '@react-navigation/native';
-import listMovies from './src/components/MoviesList';
-import tvShows from './src/components/TVshowList';
-import SearchResults from './src/components/SearchMovies';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-const Tab = createMaterialTopTabNavigator();
-
+const Stack = createNativeStackNavigator();;
+import IndexComponent from "./src/components/index";
+import DetailComponent from "./src/components/DetailComponent";
 
 export default function App() {
   return (
-    <SafeAreaProvider>
-      <GluestackUIProvider config={config}>
-        <StatusBar backgroundColor='#2c3e50' />
-        <Box bg='#2c3e50' justifyContent='center'>
-          <Text color='#fff' style={styles.textArea} fontSize={20} fontWeight='bold'>
-            Movie App
-          </Text>
-        </Box>
-        <NavigationContainer>
-          <Tab.Navigator>
-            <Tab.Screen name="Movies" component={listMovies} />
-            <Tab.Screen name="Search Results" component={SearchResults} />
-            <Tab.Screen name="TV Shows" component={SearchResults} />
-          </Tab.Navigator>
-        </NavigationContainer>
-       
-      </GluestackUIProvider>
-    </SafeAreaProvider>
+
+    <NavigationContainer>
+
+      
+      <Stack.Navigator>
+        
+        <Stack.Screen
+          name="index"
+          component={IndexComponent}
+          options={{ headerShown: false }}
+        />
+
+        <Stack.Screen name="details" component={DetailComponent} options={{headerShown: false}} />
+      </Stack.Navigator>
+    </NavigationContainer>
+    // <SafeAreaProvider>
+
+    //   <IndexComponent/>
+    // </SafeAreaProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-
-  textArea: {
-    textAlign: "center",
-    paddingTop: 10,
-    paddingBottom: 10
-  }
-});
