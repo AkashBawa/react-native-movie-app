@@ -2,7 +2,7 @@ import { View, HStack, Text, VStack, Image,  Button, ButtonText } from '@gluesta
 import { StyleSheet } from 'react-native';
 
 const MovieCard = props => {
-    const { navigation, image, title, popularity, release_date, id } = props
+    const { navigation, image, title, popularity, release_date, id, type } = props
     return (
         <View style={styles.mainContainer}>
             <HStack style={styles.horizontalStack}>
@@ -23,8 +23,9 @@ const MovieCard = props => {
                     <Button
                         onPress={() => {
                             navigation.navigate('details', {
-                                type: "movie",
-                                id: id
+                                type,
+                                id: id,
+                               
                             } )
                         }}
                         variant='link'
@@ -43,17 +44,16 @@ const styles = StyleSheet.create({
         flex: 1
     },
     horizontalStack: {
-        marginRight: 10,
-        marginLeft: 10,
         marginTop: 10,
         marginBottom: 10,
-        // justifyContent: "space-evenly"
     },
     imageStyle: {
         marginRight: 10
     },
     title:{
-        fontWeight: "bold"
+        fontWeight: "bold",
+        flex: 1,
+        flexWrap: "wrap"
     },
     button : {
         backgroundColor:"#06ADCE",

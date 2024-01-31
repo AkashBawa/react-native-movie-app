@@ -21,28 +21,3 @@ export const getRequest = async (url) => {
   }
 
 }
-
-export const getRecipes = async ingredient => {
-  const url = BASE_URL
-
-  try {
-    const params = {
-      q: ingredient,
-      app_id: APP_ID,
-      app_key: APP_KEY,
-      type: TYPE,
-      field: ['url', 'image', 'label', 'source']
-    }
-
-    // console.log('getting recipes')
-    const recipeAxios = axios.create({
-      paramsSerializer: params => qs.stringify(params, { arrayFormat: 'repeat' })
-    })
-
-    const response = await recipeAxios.get(url, { params })
-
-    return response
-  } catch (error) {
-    throw error
-  }
-}

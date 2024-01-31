@@ -9,7 +9,8 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import { NavigationContainer } from '@react-navigation/native';
 import ListMovies from './MoviesList';
 import tvShows from './TVshowList';
-import SearchResults from './SearchMovies';
+import SearchResults from './search/SearchMovies';
+import TvShows from './TVshowList';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -30,8 +31,16 @@ export default function Index({navigation}) {
                     () => <ListMovies navigation={navigation}/>
                 }
             </Tab.Screen>
-            <Tab.Screen name="Search Results" component={SearchResults} />
-            <Tab.Screen name="TV Shows" component={SearchResults} />
+            <Tab.Screen name="Search" >
+              {
+                () => <SearchResults navigation={navigation}/>
+              }
+            </Tab.Screen>
+            <Tab.Screen name="TV Shows">
+              {
+                () => <TvShows navigation={navigation}/>
+              }
+            </Tab.Screen>
         </Tab.Navigator>
        
       </GluestackUIProvider>

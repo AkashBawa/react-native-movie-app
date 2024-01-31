@@ -16,9 +16,23 @@ const ListMovies = ({ navigation })=> {
     const fetchMovies = async () => {
         try {
             const response = await getRequest(`movie/${movieType}?language=en-US&page=1`);
-
+            let finalData = [];
             if (response && response.data && response.data.results) {
-                setMovieList(response.data.results);
+                response.data.results.forEach ((item) => {
+
+                    let obj = {
+                        poster_path : item.poster_path,
+                        title: item.title ? item.title : item.name,
+                        popularity: item.popularity,
+                        release_date: item.release_date ? item.release_date : item.first_air_date,
+                        id: item.id,
+                        type: 'movie'
+                    }
+    
+                    finalData.push(obj);
+                })
+
+                setMovieList(finalData)
             }
         } catch (err) {
             setMovieList([]);
@@ -31,7 +45,7 @@ const ListMovies = ({ navigation })=> {
     }
 
     return (
-        <View style={{ flex: 1 }}>
+        <View style={{ flex: 1, padding: 15, justifyContent:"center" }}>
             <View style={style.dropDown}>
                 <Select selectedValue={movieType} onValueChange={(e) => valueChange(e)}>
                     <SelectTrigger variant="outline" size="md">

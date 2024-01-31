@@ -1,4 +1,4 @@
-import { Text, View, StatusBar, Box, ButtonBack, Image, VStack, HStack, Icon, ArrowLeftIcon } from "@gluestack-ui/themed";
+import { Text, View, StatusBar, Box, ButtonBack, Image, VStack, HStack, Icon, ArrowLeftIcon, Center, Button } from "@gluestack-ui/themed";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { GluestackUIProvider } from '@gluestack-ui/themed';
 import { StyleSheet } from "react-native";
@@ -27,7 +27,7 @@ const DetailComponent = ({ navigation, route }) => {
           id: response.data.id,
           details: response.data.overview,
           poster: response.data.poster_path,
-          name: response.data.original_title,
+          name: response.data.title ? response.data.title : response.data.name,
           popularity: response.data.popularity,
           releaseDate: response.data.release_date
         }
@@ -39,16 +39,31 @@ const DetailComponent = ({ navigation, route }) => {
       console.error(err);
     }
   }
+
+  const goBack = () => {
+    navigation.goBack();
+  }
+
   return (
     <SafeAreaProvider config={config}>
       <GluestackUIProvider config={config}>
         <StatusBar backgroundColor='#2c3e50' />
         {/* <ButtonBack onPress={() => navigation.goBack()} /> */}
-        <Icon as={ArrowLeftIcon} m="$2" w="$4" h="$4" />
+       
         <Box bg='white' justifyContent='center'>
-          <Text color='black' style={styles.textArea} fontSize={16}>
-            {finalData.name}
-          </Text>
+          <HStack style={styles.topLabel}>
+            <Button style={styles.backIcon} onPress={() => {
+              goBack();
+            }}>
+              <Icon style={styles.colorBlue} as={ArrowLeftIcon} m="$2" w="$4" h="$4" />
+              <Text style={styles.colorBlue} >Back to List</Text>
+            </Button>
+           
+            <Text color='black' style={styles.textArea} fontSize={16}>
+              {finalData.name}
+            </Text>
+          </HStack>
+          
         </Box>
 
         <VStack alignItems='center' style={styles.vstack}>
@@ -99,6 +114,20 @@ const styles = StyleSheet.create({
 
   hstack:  {
     marginBottom: 15
+  },
+
+  backIcon: {
+    backgroundColor: "transparent",
+    margin: 0,
+    padding: 0
+  },  
+
+  colorBlue: {
+    color: "#6CA3F1"
+  },
+
+  topLabel: {
+    alignItems: "center",
   },
 
   details: {

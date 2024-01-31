@@ -10,11 +10,12 @@ const MovieList = (props) => {
       renderItem={({ item }) => (
         <MovieCard 
         navigation = {navigation}
-          image={item.poster_path ? `${Config.BASE_URL_FOR_IMAGE}${item.poster_path}` : "https://image.tmdb.org/t/p/w500/7lTnXOy0iNtBAdRP3TZvaKJ77F6.jpg" }
+          image={`${Config.BASE_URL_FOR_IMAGE}${item.poster_path}`}
           title= {item.title}
           popularity={item.popularity}
           release_date={item.release_date}
           id={item.id}
+          type={item.type}
           // label={item.id}
         //   source={movie.source}
         //   url={movie.url}
