@@ -14,6 +14,7 @@ const MovieList = (props) => {
           title= {item.title}
           popularity={item.popularity}
           release_date={item.release_date}
+          id={item.id}
           // label={item.id}
         //   source={movie.source}
         //   url={movie.url}

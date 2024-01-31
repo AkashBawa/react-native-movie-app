@@ -10,12 +10,13 @@ export const getRequest = async (url) => {
     console.log("final url", finalUrl)
     const headers = {
       accept: 'application/json',
-      Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxMTNlYzAwNGQ3MzExOTVjNDlkMDlmYzk4MzQ4ZWMwNiIsInN1YiI6IjY0MzU4N2NiMDZmOTg0MDA3Njk1MzljZiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.O4c1T9DsWcrskIxEbjsopSR0wW59Wxn2NGxrLPK5BA8'
+      Authorization: `Bearer ${Config.TMDP_ACCESS_TOKEN}`
     }
     const response = await axios.get(finalUrl, { headers })
-    // console.log(response)
+
     return response;
   } catch (err) {
+    console.log(err)
     throw err;
   }
 

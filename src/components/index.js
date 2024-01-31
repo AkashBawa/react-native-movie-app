@@ -1,4 +1,4 @@
-import { GluestackUIProvider } from '@gluestack-ui/themed';
+import { GluestackUIProvider, Icon } from '@gluestack-ui/themed';
 // import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, View } from 'react-native';
 import { config } from "@gluestack-ui/config";
