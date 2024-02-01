@@ -71,7 +71,7 @@ const TvShowPage = ({navigation}) => {
             </View>
 
             {
-                TVListdata && <ListCards navigation={navigation} movies={TVListdata}/>
+                TVListdata && <ListCards navigation={navigation} listData={TVListdata}/>
             }
 
         </View>

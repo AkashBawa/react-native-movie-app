@@ -4,10 +4,10 @@ import  Config from '../../config/api';
 import SingleCard from './SingleCard';
 
 const ListCards = (props) => {
-  const { navigation, movies } = props;
+  const { navigation, listData } = props;
   return (
     <FlatList
-      data={movies}
+      data={listData}
       renderItem={({ item }) => (
         <SingleCard 
         navigation = {navigation}

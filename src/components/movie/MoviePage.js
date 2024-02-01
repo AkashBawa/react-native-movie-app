@@ -71,7 +71,7 @@ const MoviePage = ({ navigation })=> {
             </View>
 
             {
-                movieListdata && <ListCards navigation={navigation} movies={movieListdata}/>
+                movieListdata && <ListCards navigation={navigation} listData={movieListdata}/>
             }
 
         </View>

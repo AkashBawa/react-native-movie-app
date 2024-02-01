@@ -94,10 +94,11 @@ const SearchResults = ({ navigation }) => {
                     <ButtonText>Search</ButtonText>
                 </Button>
             </HStack>
-
-            {
-                dataList && <ListCards navigation={navigation} movies={dataList}/>
-            }
+            <View style={styles.loadingState}>
+                {
+                    dataList.length == 0 ? <Text style={styles.centerText}>Please initiate a search</Text> : <ListCards navigation={navigation} listData={dataList}/>
+                }
+            </View>
         </View>
     )
 }
@@ -105,6 +106,19 @@ const SearchResults = ({ navigation }) => {
 export default SearchResults;
 
 const styles = StyleSheet.create({
+
+    loadingState: {
+        display: "flex",
+        alignContent: "center",
+        justifyContent: "center",
+      
+    },
+    centerText : {
+        textAlign: "center",
+        fontSize: 25,
+        lineHeight: 50
+    },
+
     container: {
         padding: 15
     },
