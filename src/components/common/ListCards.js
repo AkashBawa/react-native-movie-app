@@ -1,14 +1,15 @@
 import { FlatList } from '@gluestack-ui/themed'
-import MovieCard from './MovieCard';
-import  Config from '../config/api'
+// import MovieCard from './MovieCard';
+import  Config from '../../config/api';
+import SingleCard from './SingleCard';
 
-const MovieList = (props) => {
+const ListCards = (props) => {
   const { navigation, movies } = props;
   return (
     <FlatList
       data={movies}
       renderItem={({ item }) => (
-        <MovieCard 
+        <SingleCard 
         navigation = {navigation}
           image={`${Config.BASE_URL_FOR_IMAGE}${item.poster_path}`}
           title= {item.title}
@@ -27,4 +28,4 @@ const MovieList = (props) => {
   )
 }
 
-export default MovieList
+export default ListCards

@@ -3,11 +3,12 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import { GluestackUIProvider } from '@gluestack-ui/themed';
 import { StyleSheet } from "react-native";
 import { config } from "@gluestack-ui/config";
-import Config from '../config/api'
 import { useEffect, useState } from "react";
-import { getRequest } from "./../services/api";
 
-const DetailComponent = ({ navigation, route }) => {
+import Config from '../../config/api';
+import { getRequest } from "../../services/api";
+
+const SingleView = ({ navigation, route }) => {
 
   const [finalData, setFinalData] = useState({});
   const { type, id } = route.params;
@@ -103,7 +104,8 @@ const DetailComponent = ({ navigation, route }) => {
 }
 
 
-export default DetailComponent;
+export default SingleView;
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,

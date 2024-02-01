@@ -1,7 +1,7 @@
 import { View, HStack, Text, VStack, Image,  Button, ButtonText } from '@gluestack-ui/themed'
 import { StyleSheet } from 'react-native';
 
-const MovieCard = props => {
+const SingleCard = props => {
     const { navigation, image, title, popularity, release_date, id, type } = props
     return (
         <View style={styles.mainContainer}>
@@ -66,4 +66,4 @@ const styles = StyleSheet.create({
   })
   
 
-export default MovieCard;
+export default SingleCard;

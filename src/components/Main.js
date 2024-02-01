@@ -1,21 +1,25 @@
 import { GluestackUIProvider, Icon } from '@gluestack-ui/themed';
-// import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, View } from 'react-native';
 import { config } from "@gluestack-ui/config";
 import { Box, StatusBar, Text } from '@gluestack-ui/themed'
 import { SafeAreaProvider } from "react-native-safe-area-context";
-
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import { NavigationContainer } from '@react-navigation/native';
-import ListMovies from './MoviesList';
-import tvShows from './TVshowList';
+
+
+// Import components
+
+// import ListMovies from './MoviesList';
+
+// import TvShows from './TVshowList';
+
+import MoviePage from './movie/MoviePage';
 import SearchResults from './search/SearchMovies';
-import TvShows from './TVshowList';
+import TvShowPage from './tvShow/TvShowPage';
 
 const Tab = createMaterialTopTabNavigator();
 
 
-export default function Index({navigation}) {
+export default function Main({navigation}) {
   return (
     <SafeAreaProvider>
       <GluestackUIProvider config={config}>
@@ -28,7 +32,7 @@ export default function Index({navigation}) {
         <Tab.Navigator>
             <Tab.Screen name="Movies">
                 {
-                    () => <ListMovies navigation={navigation}/>
+                    () => <MoviePage navigation={navigation}/>
                 }
             </Tab.Screen>
             <Tab.Screen name="Search" >
@@ -38,7 +42,7 @@ export default function Index({navigation}) {
             </Tab.Screen>
             <Tab.Screen name="TV Shows">
               {
-                () => <TvShows navigation={navigation}/>
+                () => <TvShowPage navigation={navigation}/>
               }
             </Tab.Screen>
         </Tab.Navigator>

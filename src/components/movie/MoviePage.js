@@ -1,22 +1,25 @@
 import { View, Text, Select, SelectTrigger, SelectInput, SelectPortal, SelectBackdrop, SelectContent, SelectDragIndicatorWrapper, SelectDragIndicator, SelectItem } from '@gluestack-ui/themed'
 import { useEffect, useState } from 'react';
-import MovieList from "./MovieList"
-import { getRequest } from "./../services/api";
 import { StyleSheet } from 'react-native';
 
+// Import components
+// import MovieList from "./MovieList";
+import ListCards from '../common/ListCards';
+import { getRequest } from "./../../services/api";
 
-const TvShows = ({navigation}) => {
 
-    const [TVListdata, setTVList] = useState([]);
-    const [TVType, setTVType] = useState("popular");
+const MoviePage = ({ navigation })=> {
+
+    const [movieListdata, setMovieList] = useState([]);
+    const [movieType, setMovieType] = useState("popular");
 
     useEffect(() => {
-        fetchTVs();
-    }, [TVType])
+        fetchMovies();
+    }, [movieType])
 
-    const fetchTVs = async () => {
+    const fetchMovies = async () => {
         try {
-            const response = await getRequest(`tv/${TVType}?language=en-US&page=1`);
+            const response = await getRequest(`movie/${movieType}?language=en-US&page=1`);
             let finalData = [];
             if (response && response.data && response.data.results) {
                 response.data.results.forEach ((item) => {
@@ -27,28 +30,28 @@ const TvShows = ({navigation}) => {
                         popularity: item.popularity,
                         release_date: item.release_date ? item.release_date : item.first_air_date,
                         id: item.id,
-                        type: 'tv'
+                        type: 'movie'
                     }
     
                     finalData.push(obj);
                 })
+
+                setMovieList(finalData)
             }
-            console.log(finalData)
-            setTVList(finalData)
         } catch (err) {
-            setTVList([]);
+            setMovieList([]);
         }
 
     }
 
     const valueChange = (event) => {
-        setTVType(event)
+        setMovieType(event)
     }
 
     return (
         <View style={{ flex: 1, padding: 15, justifyContent:"center" }}>
             <View style={style.dropDown}>
-                <Select selectedValue={TVType} onValueChange={(e) => valueChange(e)}>
+                <Select selectedValue={movieType} onValueChange={(e) => valueChange(e)}>
                     <SelectTrigger variant="outline" size="md">
                         <SelectInput placeholder="Select option" />
                     </SelectTrigger>
@@ -58,17 +61,17 @@ const TvShows = ({navigation}) => {
                             <SelectDragIndicatorWrapper>
                                 <SelectDragIndicator />
                             </SelectDragIndicatorWrapper>
-                            <SelectItem label="Airing today" value="airing_today" />
-                            <SelectItem selected label="Popular" value="popular" />
-                            <SelectItem label="Top rated" value="top_rated" />
-                            <SelectItem label="On the air" value="on_the_air" />
+                            <SelectItem label="Now playing" value="now_playing" />
+                            <SelectItem selected label="popular" value="popular" />
+                            <SelectItem label="Top Rated" value="top_rated" />
+                            <SelectItem label="Upcoming" value="upcoming" />
                         </SelectContent>
                     </SelectPortal>
                 </Select>
             </View>
 
             {
-                TVListdata && <MovieList navigation={navigation} movies={TVListdata}></MovieList>
+                movieListdata && <ListCards navigation={navigation} movies={movieListdata}/>
             }
 
         </View>
@@ -82,4 +85,4 @@ const style = StyleSheet.create({
     }
 })
 
-export default TvShows;
+export default MoviePage;

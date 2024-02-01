@@ -7,8 +7,8 @@ import {
 import { useEffect, useState } from "react";
 import { StyleSheet } from "react-native";
 import { getRequest } from "../../services/api";
-import MovieList from "../MovieList";
 
+import ListCards from "../common/ListCards";
 const SearchResults = ({ navigation }) => {
 
     const [selectedValue, setSelectedValue] = useState('movie');
@@ -21,7 +21,7 @@ const SearchResults = ({ navigation }) => {
 
     useEffect(() => {
         fetchData();
-    }, [selectedValue])
+    }, [])
 
     const fetchData = async () => {
         // movie https://api.themoviedb.org/3/search/movie?include_adult=false&language=en-US&page=1
@@ -96,7 +96,7 @@ const SearchResults = ({ navigation }) => {
             </HStack>
 
             {
-                dataList && <MovieList navigation={navigation} movies={dataList}></MovieList>
+                dataList && <ListCards navigation={navigation} movies={dataList}/>
             }
         </View>
     )

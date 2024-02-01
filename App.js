@@ -4,9 +4,10 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-const Stack = createNativeStackNavigator();;
-import IndexComponent from "./src/components/index";
-import DetailComponent from "./src/components/DetailComponent";
+const Stack = createNativeStackNavigator();
+
+import MainComponent from "./src/components/Main";
+import SingleView from "./src/components/singleView/SingleView";
 
 export default function App() {
   return (
@@ -18,11 +19,11 @@ export default function App() {
         
         <Stack.Screen
           name="index"
-          component={IndexComponent}
+          component={MainComponent}
           options={{ headerShown: false }}
         />
 
-        <Stack.Screen name="details" component={DetailComponent} options={{headerShown: false}} />
+        <Stack.Screen name="details" component={SingleView} options={{headerShown: false}} />
       </Stack.Navigator>
     </NavigationContainer>
     // <SafeAreaProvider>
