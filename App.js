@@ -23,7 +23,7 @@ export default function App() {
           options={{ headerShown: false }}
         />
 
-        <Stack.Screen name="details" component={SingleView} options={{headerShown: false}} />
+        <Stack.Screen name="details"  component={SingleView} options={{headerShown: false}} />
       </Stack.Navigator>
     </NavigationContainer>
     // <SafeAreaProvider>

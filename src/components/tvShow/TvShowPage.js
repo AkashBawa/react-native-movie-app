@@ -1,9 +1,7 @@
-import { View, Text, Select, SelectTrigger, SelectInput, SelectPortal, SelectBackdrop, SelectContent, SelectDragIndicatorWrapper, SelectDragIndicator, SelectItem } from '@gluestack-ui/themed'
+import { View, Text, HStack, Button, ButtonText ,Select, SelectTrigger, SelectInput, SelectPortal, SelectBackdrop, SelectContent, SelectDragIndicatorWrapper, SelectDragIndicator, SelectItem } from '@gluestack-ui/themed'
 import { useEffect, useState } from 'react';
 import { StyleSheet } from 'react-native';
 
-
-// import MovieList from "./MovieList"
 import { getRequest } from "./../../services/api";
 import ListCards from '../common/ListCards';
 
@@ -12,6 +10,11 @@ const TvShowPage = ({navigation}) => {
 
     const [TVListdata, setTVList] = useState([]);
     const [TVType, setTVType] = useState("popular");
+    const [currentPage, setCurrentPage] = useState(1);
+    const [previousActive, setPreviousActive] = useState(false);
+    const [nextActive, setNextActive] = useState(false);
+    const [startIndex, setStartIndex] = useState(0);
+    const [endIndex, setEndIndex] = useState(10);
 
     useEffect(() => {
         fetchTVs();
@@ -36,12 +39,38 @@ const TvShowPage = ({navigation}) => {
                     finalData.push(obj);
                 })
             }
-            console.log(finalData)
             setTVList(finalData)
         } catch (err) {
             setTVList([]);
         }
 
+    }
+
+    useEffect(() => {
+        setStartIndex((currentPage - 1) * 10);
+        setEndIndex(currentPage * 10);
+        checkNextPage();
+        checkPreviousPage();
+    }, [TVListdata, currentPage])
+
+    const checkPreviousPage = () => {
+        if ( currentPage === 1) {
+            setPreviousActive(false);
+        } else {
+            setPreviousActive(true);
+        }
+    }
+
+    const checkNextPage = () => {
+        if (TVListdata.length - 1 > (currentPage * 10)) {
+            setNextActive(true);
+        } else {
+            setNextActive(false);
+        }
+    }
+
+    const changePage = (num) => {
+        setCurrentPage( currentPage  + num );
     }
 
     const valueChange = (event) => {
@@ -71,8 +100,16 @@ const TvShowPage = ({navigation}) => {
             </View>
 
             {
-                TVListdata && <ListCards navigation={navigation} listData={TVListdata}/>
+                TVListdata && <ListCards startIndex={startIndex} endIndex={endIndex} navigation={navigation} listData={TVListdata}/>
             }
+            <HStack style={style.paginationSection}>
+                <Button disabled={!previousActive} style={style.paginationButton} title='Previous' onPress={()=> changePage(-1)} color="#84158">
+                    <ButtonText style={{color: previousActive ? "#06ADCE" : "gray"}}>Prev.</ButtonText>
+                </Button>
+                <Button title='Next' style={style.paginationButton} onPress={()=> changePage(1)} color="#84158">
+                    <ButtonText disabled={!nextActive} style={{color: nextActive ? "#06ADCE" : "gray"}}>Next</ButtonText>
+                </Button>
+            </HStack>
 
         </View>
     )
@@ -82,6 +119,13 @@ const style = StyleSheet.create({
     dropDown: {
         margin: 25,
         justifyContent: "center"
+    },
+    paginationSection: {
+        justifyContent: "center"
+    },
+
+    paginationButton: {
+        backgroundColor: "transparent"
     }
 })
 

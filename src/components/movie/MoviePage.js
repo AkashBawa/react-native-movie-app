@@ -1,4 +1,4 @@
-import { View, Text, Select, SelectTrigger, SelectInput, SelectPortal, SelectBackdrop, SelectContent, SelectDragIndicatorWrapper, SelectDragIndicator, SelectItem } from '@gluestack-ui/themed'
+import { View, Text, Select, SelectTrigger, SelectInput, SelectPortal, SelectBackdrop, SelectContent, SelectDragIndicatorWrapper, SelectDragIndicator, SelectItem, Button, HStack } from '@gluestack-ui/themed'
 import { useEffect, useState } from 'react';
 import { StyleSheet } from 'react-native';
 
@@ -6,12 +6,18 @@ import { StyleSheet } from 'react-native';
 // import MovieList from "./MovieList";
 import ListCards from '../common/ListCards';
 import { getRequest } from "./../../services/api";
+import { ButtonText } from '@gluestack-ui/themed';
 
 
 const MoviePage = ({ navigation })=> {
 
     const [movieListdata, setMovieList] = useState([]);
     const [movieType, setMovieType] = useState("popular");
+    const [currentPage, setCurrentPage] = useState(1);
+    const [previousActive, setPreviousActive] = useState(false);
+    const [nextActive, setNextActive] = useState(false);
+    const [startIndex, setStartIndex] = useState(0);
+    const [endIndex, setEndIndex] = useState(10);
 
     useEffect(() => {
         fetchMovies();
@@ -35,13 +41,41 @@ const MoviePage = ({ navigation })=> {
     
                     finalData.push(obj);
                 })
-
-                setMovieList(finalData)
+                console.log(finalData.length);
+                setMovieList(finalData);
             }
         } catch (err) {
             setMovieList([]);
         }
 
+    }
+
+    useEffect(() => {
+        setStartIndex((currentPage - 1) * 10);
+        setEndIndex(currentPage * 10);
+        checkNextPage();
+        checkPreviousPage();
+    }, [movieListdata, currentPage])
+
+    const checkPreviousPage = () => {
+        if ( currentPage === 1) {
+            setPreviousActive(false);
+        } else {
+            setPreviousActive(true);
+        }
+    }
+
+    const checkNextPage = () => {
+        if (movieListdata.length - 1 > (currentPage * 10)) {
+            setNextActive(true);
+        } else {
+            setNextActive(false);
+        }
+    }
+
+    const changePage = (num) => {
+        let finalVal = currentPage + num;
+        setCurrentPage( currentPage  + num );
     }
 
     const valueChange = (event) => {
@@ -71,18 +105,37 @@ const MoviePage = ({ navigation })=> {
             </View>
 
             {
-                movieListdata && <ListCards navigation={navigation} listData={movieListdata}/>
+                movieListdata && <ListCards startIndex={startIndex} endIndex={endIndex} navigation={navigation} listData={movieListdata}/>
             }
+
+            <HStack style={style.paginationSection}>
+                <Button disabled={!previousActive} style={style.paginationButton} title='Previous' onPress={()=> changePage(-1)} color="#84158">
+                    <ButtonText style={{color: previousActive ? "#06ADCE" : "gray"}}>Prev.</ButtonText>
+                </Button>
+                <Button title='Next' style={style.paginationButton} onPress={()=> changePage(1)} color="#84158">
+                    <ButtonText disabled={!nextActive} style={{color: nextActive ? "#06ADCE" : "gray"}}>Next</ButtonText>
+                </Button>
+            </HStack>
 
         </View>
     )
 }
 
 const style = StyleSheet.create({
+    
     dropDown: {
         margin: 25,
         justifyContent: "center"
+    },
+
+    paginationSection: {
+        justifyContent: "center"
+    },
+
+    paginationButton: {
+        backgroundColor: "transparent"
     }
+
 })
 
 export default MoviePage;

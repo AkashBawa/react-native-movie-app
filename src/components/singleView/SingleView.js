@@ -32,7 +32,6 @@ const SingleView = ({ navigation, route }) => {
           popularity: response.data.popularity,
           releaseDate: response.data.release_date
         }
-        console.log("obj", obj)
         setFinalData(obj);
       }
 
@@ -51,7 +50,7 @@ const SingleView = ({ navigation, route }) => {
         <StatusBar backgroundColor='#2c3e50' />
         {/* <ButtonBack onPress={() => navigation.goBack()} /> */}
        
-        <Box bg='white' justifyContent='center'>
+        <Box>
           <HStack style={styles.topLabel}>
             <Button style={styles.backIcon} onPress={() => {
               goBack();
@@ -130,6 +129,9 @@ const styles = StyleSheet.create({
 
   topLabel: {
     alignItems: "center",
+    marginLeft: 0,
+    paddingLeft: 0,
+    width: "100%"
   },
 
   details: {

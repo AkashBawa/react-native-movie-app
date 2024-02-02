@@ -7,7 +7,7 @@ export const getRequest = async (url) => {
 
   try {
     const finalUrl = `${Config.BASE_URL}${url}`;
-    console.log("final url", finalUrl)
+
     const headers = {
       accept: 'application/json',
       Authorization: `Bearer ${Config.TMDP_ACCESS_TOKEN}`
